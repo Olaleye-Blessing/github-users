@@ -9,4 +9,81 @@
     h2 {
         @apply text-2xl;
     }
+    a {
+        @apply transition duration-200;
+    }
+    svg {
+        @apply text-white-primary text-opacity-60;
+    }
+}
+
+@layer utilities {
+    @variants responsive {
+        .min-w-89 {
+            min-width: 350px;
+        }
+        .userbox {
+            min-width: 15rem;
+        }
+        .chartGrid {
+            display: grid;
+            grid-template-columns: 3fr 4fr;
+            /* grid-auto-rows: minmax(300px, 400px); */
+            gap: 40px;
+        }
+        .fusioncharts-container {
+            @apply w-full !important;
+        }
+        .fusioncharts-container svg {
+            @apply w-full rounded-md;
+        }
+    }
+    .box {
+        @apply bg-black-light rounded px-4 py-3;
+    }
+
+    .lds-facebook {
+        /* display: inline-block;
+        position: relative;
+        width: 80px;
+        height: 80px; */
+        @apply inline-block relative w-20 h-20;
+    }
+    .lds-facebook div {
+        /* display: inline-block;
+        position: absolute;
+        left: 8px;
+        width: 16px;
+        background: #fff; */
+        @apply inline-block absolute left-2 w-4 bg-purple-primary;
+        animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+    }
+    .lds-facebook div:nth-child(1) {
+        /* left: 8px; */
+        @apply left-2;
+        animation-delay: -0.24s;
+    }
+    .lds-facebook div:nth-child(2) {
+        /* left: 32px; */
+        @apply left-8 bg-purple-dark;
+        animation-delay: -0.12s;
+    }
+    .lds-facebook div:nth-child(3) {
+        /* left: 56px; */
+        @apply left-14;
+        animation-delay: 0;
+    }
+    @keyframes lds-facebook {
+        0% {
+            @apply top-2 h-16;
+            /* top: 8px; */
+            /* height: 64px; */
+        }
+        50%,
+        100% {
+            @apply top-6 h-8;
+            /* top: 24px; */
+            /* height: 32px; */
+        }
+    }
 }
