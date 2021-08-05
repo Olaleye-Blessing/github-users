@@ -76,11 +76,13 @@ export const AppProvider = ({ children }) => {
             following = following.value;
             repos = repos.value;
 
+            await checkRateLimit();
             setUserDetail(userDetail);
             setUserRepos(repos);
             setUserFollowers(followers);
             setUserFollowing(following);
             setShowSearch(false);
+            setInputSearch("");
         } catch (error) {
             if (error.message === "Not Found") {
                 handleErrorMsg(
@@ -101,6 +103,18 @@ export const AppProvider = ({ children }) => {
     useEffect(() => {
         checkRateLimit();
     }, []);
+
+    useEffect(() => {
+        // dont enable auto search if
+        // rate limit is exhausted
+        // input search is empty. This happens when the nav search button is clicked
+        if (userRateLimit === 0 || !inputSearch) {
+            return;
+        }
+
+        handleSubmitSearch();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [showSearch]);
 
     let languages = userRepos.reduce((acc, current) => {
         let { language, stargazers_count } = current;
@@ -167,6 +181,7 @@ export const AppProvider = ({ children }) => {
         .sort((a, b) => b.value - a.value)
         .slice(0, 4);
 
+    // console.log(inputSearch);
     return (
         <AppContext.Provider
             value={{
