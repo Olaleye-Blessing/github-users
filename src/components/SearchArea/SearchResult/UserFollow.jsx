@@ -1,8 +1,8 @@
 import { useState } from "react";
-import Button from "../../Buttons/Button";
-import Modal from "../../Modal/Modal";
+import ColoredButton from "../../Buttons/ColoredButton";
 import ResultBox from "./ResultBox";
 import UserLists from "./UserLists";
+import Modal from "./../../Modal";
 
 const UserFollow = ({ title, users }) => {
     const [showMoreModal, setShowMoreModal] = useState(false);
@@ -19,9 +19,9 @@ const UserFollow = ({ title, users }) => {
             <ResultBox title={title}>
                 <UserLists users={fewUsers} />
                 {showMore && (
-                    <Button
+                    <ColoredButton
                         text="show more"
-                        extraClass="text-purple-primary border border-current mt-5 rounded-md hover:bg-purple-primary hover:bg-opacity-20"
+                        extraClass="px-3 pt-1 pb-2"
                         onClick={() => setShowMoreModal(true)}
                     />
                 )}

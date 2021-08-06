@@ -1,10 +1,12 @@
-const Button = ({ text, onClick, extraClass }) => {
+const Button = ({ text, onClick, extraClass, children, type }) => {
     return (
         <button
             onClick={onClick}
-            className={`${extraClass} px-2 pt-1 pb-2 transition-colors duration-200`}
+            className={`${extraClass} transition-colors duration-200 inline-block rounded`}
+            type={type}
         >
             {text}
+            {children}
         </button>
     );
 };
@@ -12,6 +14,7 @@ const Button = ({ text, onClick, extraClass }) => {
 Button.defaultProps = {
     extraClass: "",
     onClick: null,
+    type: "button",
 };
 
 export default Button;

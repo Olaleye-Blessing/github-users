@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useAppContext } from "../../../context/AppContext";
-import Button from "../../Buttons/Button";
-import Modal from "../../Modal/Modal";
+import ColoredButton from "../../Buttons/ColoredButton";
+import RepoBtnLink from "../../Buttons/RepoBtnLink";
+import Modal from "./../../Modal";
 import ResultBox from "./ResultBox";
 
 const UserRepository = () => {
@@ -22,23 +23,16 @@ const UserRepository = () => {
                             let { name, html_url } = repo;
                             return (
                                 <li key={name}>
-                                    <a
-                                        href={html_url}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="block text-purple-primary pt-1 pb-2 px-2 mb-2 border border-current hover:border-current rounded-md hover:bg-purple-primary hover:bg-opacity-30"
-                                    >
-                                        {name}
-                                    </a>
+                                    <RepoBtnLink text={name} href={html_url} />
                                 </li>
                             );
                         })}
                     </ul>
                 )}
                 {showMore && (
-                    <Button
+                    <ColoredButton
                         text="show more"
-                        extraClass="text-purple-primary border border-current mt-5 rounded-md hover:bg-purple-primary hover:bg-opacity-20"
+                        extraClass="px-3 pt-1 pb-2"
                         onClick={() => setShowMoreModal(true)}
                     />
                 )}
@@ -53,14 +47,7 @@ const UserRepository = () => {
                             let { name, html_url } = repo;
                             return (
                                 <li key={name}>
-                                    <a
-                                        href={html_url}
-                                        target="_blank"
-                                        rel="noreferrer"
-                                        className="block text-purple-primary pt-1 pb-2 px-2 mb-2 border border-current hover:border-current rounded-md hover:bg-purple-primary hover:bg-opacity-30"
-                                    >
-                                        {name}
-                                    </a>
+                                    <RepoBtnLink text={name} href={html_url} />
                                 </li>
                             );
                         })}

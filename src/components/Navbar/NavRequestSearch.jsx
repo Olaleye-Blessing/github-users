@@ -1,8 +1,9 @@
 import { useAppContext } from "../../context/AppContext";
-// import FormSearch from "../Form/FormSearch";
+import Button from "../Buttons/Button";
 
 const NavRequestSearch = () => {
     let { setShowSearch, showSearch, userRateLimit } = useAppContext();
+
     return (
         <div className="flex items-center justify-center gap-8 mt-3 lg:mt-6">
             <div className="flex gap-3 items-center justify-center text-md">
@@ -25,17 +26,15 @@ const NavRequestSearch = () => {
                     </small>
                 </div>
             </div>
-            {!showSearch && (
+            {!showSearch && userRateLimit > 0 && (
                 <div className="text-center">
-                    <button
-                        className="text-blue-primary"
+                    <Button
+                        text="Search page"
+                        extraClass="text-blue-primary hover:text-opacity-70 focus:underline"
                         onClick={() => setShowSearch(true)}
-                    >
-                        Search
-                    </button>
+                    />
                 </div>
             )}
-            {/* <FormSearch extraClass="bg-red-darker flex" /> */}
         </div>
     );
 };
