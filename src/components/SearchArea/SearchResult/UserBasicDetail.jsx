@@ -33,7 +33,7 @@ const UserBasicDetail = () => {
         <ResultBox title="User">
             <div className="">
                 <a
-                    className="flex gap-3 hover:text-purple-primary"
+                    className="flex space-x-3 hover:text-purple-primary"
                     href={html_url}
                     rel="noreferrer"
                     target="_blank"

@@ -42,10 +42,10 @@ const ResultHeader = () => {
     ];
 
     return (
-        <header className=" flex flex-wrap items-center justify-center gap-5">
+        <header className=" flex flex-wrap items-center justify-center space-x-5">
             {data.map((dat) => (
-                <div key={dat.text} className="box">
-                    <div className=" flex items-center justify-center gap-5 pl-4 pr-9 pt-1 pb-2">
+                <div key={dat.text} className="box mt-5">
+                    <div className=" flex items-center justify-center space-x-5 pl-4 pr-9 pt-1 pb-2">
                         <figure className={`p-3 rounded-full ${dat.className}`}>
                             {dat.icon}
                         </figure>

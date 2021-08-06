@@ -5,10 +5,10 @@ const NavRequestSearch = () => {
     let { setShowSearch, showSearch, userRateLimit } = useAppContext();
 
     return (
-        <div className="flex items-center justify-center gap-8 mt-3 lg:mt-6">
-            <div className="flex gap-3 items-center justify-center text-md">
+        <div className="flex items-center justify-center space-x-8 mt-3 lg:mt-6">
+            <div className="flex space-x-2 items-center justify-center text-md">
                 <span className="text-lg">Requests:</span>
-                <div className="flex items-center justify-center gap-0">
+                <div className="flex items-center justify-center">
                     <small
                         className={`pr-1 font-bold self-start text-base lg:text-lg  ${
                             userRateLimit > 15

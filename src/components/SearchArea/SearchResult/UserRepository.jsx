@@ -42,7 +42,7 @@ const UserRepository = () => {
                     onClick={() => setShowMoreModal(false)}
                     modalTitle={"Repositories"}
                 >
-                    <ul className="flex flex-wrap items-center gap-x-4 gap-y-2 px-3 py-3">
+                    <ul className="flex flex-wrap items-center space-x-4 space-y-2 px-3 py-3">
                         {userRepos.map((repo) => {
                             let { name, html_url } = repo;
                             return (

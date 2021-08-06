@@ -9,9 +9,9 @@ const HomePage = () => {
 
     return (
         <main
-            className={`px-3 pb-10 ${
+            className={`px-3 pb-10 sm:px-8 md:px-10 lg:px-32 ${
                 showSearch
-                    ? "flex flex-col gap-10 items-center flex-auto lg:flex-row lg:px-32 justify-center"
+                    ? "flex flex-col space-y-10 items-center flex-auto lg:flex-row justify-center"
                     : "justify-start"
             }`}
         >
