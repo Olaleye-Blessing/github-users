@@ -11,7 +11,7 @@ const UserLists = ({ users, extraClass }) => {
                 return (
                     <li key={user.id} className="my-4">
                         <Button
-                            extraClass="flex gap-2 hover:text-green-primary"
+                            extraClass="flex space-x-2 hover:text-green-primary"
                             onClick={() => {
                                 setShowSearch(true);
                                 handleSearchChange(user.login);

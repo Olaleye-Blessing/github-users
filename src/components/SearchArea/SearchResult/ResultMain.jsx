@@ -7,7 +7,7 @@ const ResultMain = () => {
     let { userFollowing, userFollowers } = useAppContext();
     return (
         <>
-            <section className="flex flex-wrap gap-x-4">
+            <section className="flex flex-wrap spacex-4">
                 <UserBasicDetail />
                 <UserFollow title="Followers" users={userFollowers} />
                 <UserFollow title="Following" users={userFollowing} />

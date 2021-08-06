@@ -33,7 +33,7 @@ const UserFollow = ({ title, users }) => {
                 >
                     <UserLists
                         users={users}
-                        extraClass="flex flex-wrap items-center justify-between gap-4 pl-4 pr-10"
+                        extraClass="flex flex-wrap items-center justify-between space-x-4 pl-4 pr-10"
                     />
                 </Modal>
             )}
