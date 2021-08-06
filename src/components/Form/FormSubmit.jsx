@@ -1,17 +1,19 @@
 import { BiSearch } from "react-icons/bi";
+// import Button from "../Buttons/Button";
+import ColoredButton from "../Buttons/ColoredButton";
 
 const FormSubmit = () => {
     return (
         <div className="flex items-center justify-center mt-8">
-            <button
+            <ColoredButton
+                text="SEARCH"
                 type="submit"
-                className="bg-black-dark px-10 flex items-center justify-center gap-3 pt-3 pb-3 rounded-3xl text-sm font-bold"
+                extraClass="flex items-center justify-center px-6 pt-1 pb-2 group"
             >
-                <span>SEARCH</span>
-                <span className="pt-1">
-                    <BiSearch />
+                <span className="pt-1 pl-3">
+                    <BiSearch className="group-hover:text-white-primary" />
                 </span>
-            </button>
+            </ColoredButton>
         </div>
     );
 };

@@ -1,19 +1,20 @@
 import { useAppContext } from "../../../context/AppContext";
 import Avatar from "../../Avatar";
+import Button from "../../Buttons/Button";
 import NameAndUserName from "../../NameAndUserName";
 
 const UserLists = ({ users, extraClass }) => {
-    let { setShowSearch, setInputSearch } = useAppContext();
+    let { setShowSearch, handleSearchChange } = useAppContext();
     return (
         <ul className={`${extraClass}`}>
             {users.map((user) => {
                 return (
                     <li key={user.id} className="my-4">
-                        <button
-                            className="flex gap-2 hover:text-green-primary"
+                        <Button
+                            extraClass="flex gap-2 hover:text-green-primary"
                             onClick={() => {
                                 setShowSearch(true);
-                                setInputSearch(user.login);
+                                handleSearchChange(user.login);
                             }}
                         >
                             <Avatar
@@ -25,7 +26,7 @@ const UserLists = ({ users, extraClass }) => {
                                 username={user.html_url}
                                 extraClass="text-left"
                             />
-                        </button>
+                        </Button>
                     </li>
                 );
             })}

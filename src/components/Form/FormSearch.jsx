@@ -21,7 +21,7 @@ const FormSearch = ({ extraClass }) => {
         >
             <FormInputSearch
                 value={inputSearch}
-                onChange={handleSearchChange}
+                onChange={(e) => handleSearchChange(e.target.value)}
             />
             <FormSubmit />
         </form>

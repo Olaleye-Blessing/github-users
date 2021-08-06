@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import ColoredButton from "../components/Buttons/ColoredButton";
 import loginImg from "./../images/login.svg";
 
 const Login = () => {
@@ -15,12 +16,11 @@ const Login = () => {
                     <h1>WAUSER</h1>
                 </header>
                 <div className="mt-2">
-                    <button
+                    <ColoredButton
+                        text="Login / Sign Up"
                         onClick={loginWithRedirect}
-                        className="inline-block bg-purple-primary rounded-md px-8 pb-3 pt-2"
-                    >
-                        Login / Sign Up
-                    </button>
+                        extraClass="px-8 pb-3 pt-2"
+                    />
                 </div>
             </section>
         </main>

@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
-import mockFollowers from "../mockdata/mockFollowers";
+// import mockFollowers from "../mockdata/mockFollowers";
 import { fetchMultipleData } from "../utilities/fetchMultipleItems";
-import mockRepo from "./../mockdata/mockRepo";
-import mockUser from "./../mockdata/mockUser";
+import { getLanguages } from "../utilities/languages";
+import { sortAndSliceObject } from "../utilities/sortAndSliceObject";
+// import mockRepo from "./../mockdata/mockRepo";
+// import mockUser from "./../mockdata/mockUser";
 
 const AppContext = createContext();
 
@@ -12,21 +14,19 @@ export const AppProvider = ({ children }) => {
     const formRef = useRef(null);
     const [inputSearch, setInputSearch] = useState("");
 
-    // eslint-disable-next-line
     const [searching, setSearching] = useState(false);
     const [showSearch, setShowSearch] = useState(true);
 
-    // eslint-disable-next-line
     const [userRateLimit, setUserRateLimit] = useState(0);
 
-    // eslint-disable-next-line
-    const [userDetail, setUserDetail] = useState(mockUser);
-    // eslint-disable-next-line
-    const [userFollowers, setUserFollowers] = useState(mockFollowers);
-    // eslint-disable-next-line
-    const [userFollowing, setUserFollowing] = useState(mockFollowers);
-    // eslint-disable-next-line
-    const [userRepos, setUserRepos] = useState(mockRepo);
+    // const [userDetail, setUserDetail] = useState(mockUser);
+    const [userDetail, setUserDetail] = useState([]);
+    // const [userFollowers, setUserFollowers] = useState(mockFollowers);
+    const [userFollowers, setUserFollowers] = useState([]);
+    // const [userFollowing, setUserFollowing] = useState(mockFollowers);
+    const [userFollowing, setUserFollowing] = useState([]);
+    // const [userRepos, setUserRepos] = useState(mockRepo);
+    const [userRepos, setUserRepos] = useState([]);
 
     const [errorMsg, setErrorMsg] = useState({ show: false, msg: "" });
 
@@ -47,8 +47,8 @@ export const AppProvider = ({ children }) => {
             // console.log(error);
         }
     };
+
     const handleSubmitSearch = async () => {
-        // setShowSearch(true);
         handleErrorMsg();
 
         if (inputSearch.trim() === "") {
@@ -95,9 +95,9 @@ export const AppProvider = ({ children }) => {
         }
     };
 
-    const handleSearchChange = (e) => {
+    const handleSearchChange = (value) => {
         handleErrorMsg();
-        setInputSearch(e.target.value);
+        setInputSearch(value);
     };
 
     useEffect(() => {
@@ -105,9 +105,9 @@ export const AppProvider = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        // dont enable auto search if
-        // rate limit is exhausted
-        // input search is empty. This happens when the nav search button is clicked
+        // dont enable auto search if:
+        // 1. rate limit is exhausted
+        // 2. input search is empty. This happens when the nav search button is clicked
         if (userRateLimit === 0 || !inputSearch) {
             return;
         }
@@ -116,24 +116,7 @@ export const AppProvider = ({ children }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [showSearch]);
 
-    let languages = userRepos.reduce((acc, current) => {
-        let { language, stargazers_count } = current;
-        if (!language) return acc;
-        if (!acc[language]) {
-            acc[language] = {
-                label: language,
-                value: 1,
-                stars: stargazers_count,
-            };
-        } else {
-            acc[language] = {
-                ...acc[language],
-                value: acc[language].value + 1,
-                stars: acc[language].stars + stargazers_count,
-            };
-        }
-        return acc;
-    }, {});
+    let languages = getLanguages(userRepos);
 
     // most used Languages
     let mostUsedLanguages = Object.values(languages).sort(
@@ -146,16 +129,14 @@ export const AppProvider = ({ children }) => {
         },
         { label: "others", value: 0 }
     );
+
     mostUsedLanguages.splice(3);
+
     if (otherLanguages.value > 0) mostUsedLanguages.push(otherLanguages);
 
-    // console.log(mostUsedLanguages);
-
-    // most stars per language
-    let mostStarredLanguages = Object.values(languages)
-        .sort((a, b) => b.stars - a.stars)
-        .map((item) => ({ ...item, value: item.stars }))
-        .slice(0, 3);
+    let mostStarredLanguages = sortAndSliceObject(languages, "stars", 0, 3).map(
+        (item) => ({ ...item, value: item.stars })
+    );
 
     let { mostStarredRepo, mostForkedRepo } = userRepos.reduce(
         (accu, current) => {
@@ -173,21 +154,15 @@ export const AppProvider = ({ children }) => {
         { mostStarredRepo: {}, mostForkedRepo: {} }
     );
 
-    mostStarredRepo = Object.values(mostStarredRepo)
-        .sort((a, b) => b.value - a.value)
-        .slice(0, 4);
+    mostStarredRepo = sortAndSliceObject(mostStarredRepo, "value", 0, 4);
 
-    mostForkedRepo = Object.values(mostForkedRepo)
-        .sort((a, b) => b.value - a.value)
-        .slice(0, 4);
+    mostForkedRepo = sortAndSliceObject(mostForkedRepo, "value", 0, 4);
 
-    // console.log(inputSearch);
     return (
         <AppContext.Provider
             value={{
                 searching,
                 inputSearch,
-                setInputSearch,
                 handleSubmitSearch,
                 handleSearchChange,
                 showSearch,
@@ -213,36 +188,3 @@ export const AppProvider = ({ children }) => {
 };
 
 export const useAppContext = () => useContext(AppContext);
-
-/*let data = {
-            name,
-            login: username,
-            bio,
-            company,
-            location,
-            blog,
-            followers,
-            following,
-            public_repos,
-            public_gists,
-            followers_url,
-            following_url,
-            avatar_url,
-        };
-
-        let {
-            name,
-            login: username,
-            bio,
-            company,
-            location,
-            blog,
-            followers,
-            following,
-            public_repos,
-            public_gists,
-            followers_url,
-            following_url,
-            avatar_url,
-        } = mockUser;
-*/
